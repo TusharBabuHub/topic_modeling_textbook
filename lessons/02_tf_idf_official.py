@@ -25,10 +25,7 @@ def write_data(file, data):
 def remove_stops(text, stops):
     text = re.sub(r"AC\/\d{1,4}\/\d{1,4}", "", text)
     words = text.split()
-    final = []
-    for word in words:
-        if word not in stops:
-            final.append(word)
+    final = [word for word in words if word not in stops]
     final = " ".join(final)
     final = final.translate(str.maketrans("", "", string.punctuation))
     final = "".join([i for i in final if not i.isdigit()])
@@ -98,7 +95,7 @@ with open ("data/trc_results.txt", "w", encoding="utf-8") as f:
         f.write(f"Cluster {i}")
         f.write("\n")
         for ind in order_centroids[i, :10]:
-            f.write (' %s' % terms[ind],)
+            f.write(f' {terms[ind]}')
             f.write("\n")
         f.write("\n")
         f.write("\n")
